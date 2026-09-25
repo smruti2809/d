@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    ansible_user: root
+  tasks:
+    - name: Include docker role
+      ansible.builtin.include_role:
+        name: docker

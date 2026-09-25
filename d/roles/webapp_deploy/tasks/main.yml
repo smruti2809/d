@@ -1,0 +1,19 @@
+---
+- name: Ensure deploy directory exists
+  ansible.builtin.file:
+    path: "{{ webapp_deploy_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Render docker-compose.yml for the app
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ webapp_deploy_dir }}/docker-compose.yml"
+    mode: "0644"
+  notify: Recreate webapp container
+
+- name: Pull the app image and start the container
+  community.docker.docker_compose_v2:
+    project_src: "{{ webapp_deploy_dir }}"
+    state: present
+    pull: always

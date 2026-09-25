@@ -1,0 +1,7 @@
+---
+- name: Recreate webapp container
+  community.docker.docker_compose_v2:
+    project_src: "{{ webapp_deploy_dir }}"
+    state: present
+    pull: always
+    recreate: always

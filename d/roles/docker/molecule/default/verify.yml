@@ -1,0 +1,20 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check docker binary exists
+      ansible.builtin.command: docker --version
+      register: docker_version
+      changed_when: false
+
+    - name: Assert docker version output looks right
+      ansible.builtin.assert:
+        that:
+          - "'Docker version' in docker_version.stdout"
+
+    - name: Check docker service is active
+      ansible.builtin.command: systemctl is-active docker
+      register: docker_status
+      changed_when: false
+      failed_when: docker_status.stdout != "active"

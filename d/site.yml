@@ -1,0 +1,7 @@
+---
+- name: Provision Docker and deploy the web app
+  hosts: web
+  become: true
+  roles:
+    - role: docker
+    - role: webapp_deploy
