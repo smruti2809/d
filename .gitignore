@@ -1,0 +1,7 @@
+*.retry
+.venv/
+__pycache__/
+.molecule/
+*.pyc
+.cache/
+roles/*/molecule/*/.molecule/
